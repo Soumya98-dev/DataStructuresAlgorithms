@@ -10,10 +10,10 @@ public class Main {
 //        System.out.println(rough(strs));
     }
 
-    public static List<List<String>> groupAnagrams(String[] strs) {
-        //STEP1: SORT EACH STR
-        //STEP2:
-        
+//    public static List<List<String>> groupAnagrams(String[] strs) {
+    //STEP1: SORT EACH STR
+    //STEP2:
+
 //        char[] newArr = new char[3];
 //        String strs0 = strs[0];
 //        for (int i = 0; i < strs0.length(); i++) {
@@ -29,10 +29,26 @@ public class Main {
 //            hashMap.put(str, new ArrayList<>());
 //        }
 //        return new ArrayList<>(hashMap.values());
-    }
-
-//    public static boolean rough(String[] strs) {
-//
-//        return false;
 //    }
+
+    //TIME: m*nlogn -> m: length of the input array, nlogn: sorting
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        //CREATING A HASHMAP
+        Map<String, List<String>> hashMap = new HashMap<>();
+        for (int i = 0; i < strs.length; i++) {
+            // "toCharArray" -> converts the string to a new character array
+            char[] charArr = strs[i].toCharArray();
+            //SORTING EVERY STRING IN THE ARRAY
+            Arrays.sort(charArr);
+            //"String.valueOf()" -> returns the string representation of the char array
+            String sortedStr = String.valueOf(charArr);
+            if (!hashMap.containsKey(sortedStr)) {
+                //EVERYTIME THE "hashMap" ENCOUNTERS A NEW STR IT WILL ADD IT AND CREATE A SUBSEQUENT NEW LIST FOR IT
+                hashMap.put(sortedStr, new ArrayList<>());
+            }
+            hashMap.get(sortedStr).add(strs[i]);
+        }
+        //"hashMap.values()" returns all the values of the HASHMAP
+        return new ArrayList<>(hashMap.values());
+    }
 }
